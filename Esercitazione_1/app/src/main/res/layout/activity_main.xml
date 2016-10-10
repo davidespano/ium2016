@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.tutor_ium.esercitazione_1.MainActivity"
+    android:background="#ff7d1717">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Controllo Numerico"
+            android:id="@+id/titolo"
+            android:textColor="#ffffffff"
+            android:textSize="36dp"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="36dp" />
+
+        <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:id="@+id/incremento"
+        android:textSize="36dp"
+        android:clickable="true"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="36dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:id="@+id/input"
+            android:background="#ffffffff"
+            android:textAlignment="center"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="36dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:id="@+id/decremento"
+            android:textSize="36dp"
+            android:clickable="true"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="36dp" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sliderInput"
+            android:max="100"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
