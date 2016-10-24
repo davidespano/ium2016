@@ -10,17 +10,42 @@ public class IumFormActivity extends AppCompatActivity {
 
     Person person;
 
-    EditText nameText, surnameText;
+    EditText nameText, surnameText, birthText;
     Button saveButton;
+    boolean isResumed;
+
+    DatePickerFragment datePickerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ium_form);
 
+        isResumed = false;
+        datePickerFragment = new DatePickerFragment();
+
         nameText = (EditText) this.findViewById(R.id.attrNome);
         surnameText = (EditText) this.findViewById(R.id.attrCognome);
+        birthText = (EditText) this.findViewById(R.id.attrDate);
 
+        //Configurazione Eventi Dialog Calendar
+        birthText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
+
+        birthText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    datePickerFragment.show(getFragmentManager(), "datePicker");
+                }
+            }
+        });
+
+        //Configurazione Pulsante di Salvataggio
         saveButton = (Button) this.findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -41,5 +66,11 @@ public class IumFormActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        isResumed = true;
     }
 }
