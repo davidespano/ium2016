@@ -1,10 +1,15 @@
 package com.example.tutor_ium.esercitazione_2;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+
 
 public class IumFormActivity extends AppCompatActivity {
 
@@ -44,6 +49,17 @@ public class IumFormActivity extends AppCompatActivity {
                 }
             }
         });
+
+        datePickerFragment.setOnDatePickerFragmentChanged(new DatePickerFragment.DatePickerFragmentListener() {
+            @Override
+            public void onDatePickerFragmentOkButton(android.app.DialogFragment dialog, java.util.Calendar date) {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                birthText.setText(format.format(date.getTime()));
+            }
+
+            @Override
+            public void onDatePickerFragmentCancelButton(android.app.DialogFragment dialog) {}
+    });
 
         //Configurazione Pulsante di Salvataggio
         saveButton = (Button) this.findViewById(R.id.saveButton);

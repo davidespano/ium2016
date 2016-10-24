@@ -22,7 +22,10 @@ public class DatePickerFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState){
         super.onCreateDialog(savedInstanceState);
 
+
+
         if(date==null){
+            date = Calendar.getInstance();
             date.set(Calendar.YEAR, 1995);
             date.set(Calendar.MONTH, Calendar.JANUARY);
             date.set(Calendar.DAY_OF_MONTH, 1);
