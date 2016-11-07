@@ -14,11 +14,11 @@ import java.util.List;
  */
 public class Series<T> implements Serializable {
     protected List<T> items;
-    protected List<Double> values;
+    protected List<Float> values;
 
     public Series() {
         this.items = new ArrayList<T>();
-        this.values = new ArrayList<Double>();
+        this.values = new ArrayList<Float>();
     }
 
     /**
@@ -26,7 +26,7 @@ public class Series<T> implements Serializable {
      * @param item etichetta alfanumerica del nuovo elemento
      * @param value valore reppresentato
      */
-    public void addElement(T item, Double value){
+    public void addElement(T item, Float value){
         this.items.add(item);
         this.values.add(value);
     }
@@ -47,7 +47,7 @@ public class Series<T> implements Serializable {
      * @param i indice dell'elemento desiderato
      * @return valore richiesto
      */
-    public Double valueAt (int i){
+    public Float valueAt (int i){
         if(i < 0 || i >= this.values.size()) return null;
 
         return this.values.get(i);
@@ -68,7 +68,7 @@ public class Series<T> implements Serializable {
      * @param value nuovo valore
      * @return esito dell'operazione
      */
-    public boolean replaceElement(int i, T item, Double value){
+    public boolean replaceElement(int i, T item, Float value){
         if(i < 0 || i >= this.items.size()) return false;
 
         this.items.set(i, item);
@@ -89,7 +89,7 @@ public class Series<T> implements Serializable {
      * Restituisce l'intera lista dei valori
      * @return lista di valori
      */
-    public Iterable<Double> getValues(){
+    public Iterable<Float> getValues(){
         return this.values;
     }
 }
