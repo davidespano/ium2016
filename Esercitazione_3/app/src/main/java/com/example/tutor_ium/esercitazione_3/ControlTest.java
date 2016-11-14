@@ -11,7 +11,7 @@ public class ControlTest extends AppCompatActivity {
         setContentView(R.layout.activity_control_test);
 
         Series<String> s = new Series();
-        for(int i = 0; i<6; i++){
+        for(int i = 0; i<5; i++){
             s.addElement("elemento " +i, (float) (Math.random() *1000));
         }
 
