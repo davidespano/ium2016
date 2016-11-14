@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -29,6 +31,11 @@ public class LineGraph extends View {
     private int backgroundColor = Color.WHITE;
     private int graphColor = Color.BLACK;
     private int seriesColor = Color.RED;
+
+    //Variabili di controllo Scalatura e Traslazione
+    private float scale = 1.0f;
+    private PointF translate = new PointF(0, 0);
+
 
     public LineGraph(Context context) {
         super(context);
@@ -85,6 +92,12 @@ public class LineGraph extends View {
                 canvas.getHeight(), paint);
 
         //Salviamo lo stato del canvas per permetterne il ripristino allo stato originale
+
+
+        //Applichiamo Scalatura e traslazione
+        canvas.scale(this.scale, this.scale);
+        canvas.translate(this.translate.x, this.translate.y);
+
         canvas.save();
         canvas.translate(this.delta, this.delta);
 
@@ -126,11 +139,21 @@ public class LineGraph extends View {
             canvas.translate(this.delta, this.delta);
 
             Paint paint = new Paint();
-            paint.setColor(this.seriesColor);
             paint.setStrokeWidth(this.strokeTick);
 
             //disegnamo la serie numerica nel grafico
             for(int i = 0; i<this.series.getCount()-1; i++){
+                // disegno tacchetta asse X
+
+                paint.setColor(this.graphColor);
+                canvas.drawLine(
+                        pxpu * i, height,
+                        pxpu * i, height + this.lenghtTick,
+                        paint);
+
+
+                paint.setColor(this.seriesColor);
+
                 canvas.drawLine(
                         this.pxpu *i, (this.maxSeries-this.series.valueAt(i)) * this.pypu,
                         this.pxpu *(i+1), (this.maxSeries-this.series.valueAt(i+1)) * this.pypu,
@@ -152,6 +175,35 @@ public class LineGraph extends View {
             if(this.series.valueAt(i) > this.maxSeries) this.maxSeries = this.series.valueAt(i);
             if(this.series.valueAt(i) < this.minSeries) this.minSeries = this.series.valueAt(i);
         }
+    }
+
+    private float touchX, touchY = -1.0f;
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                touchX = event.getX();
+                touchY = event.getY();
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                float dx = event.getX() - touchX;
+                float dy = event.getY() - touchY;
+
+                translate.x = translate.x + dx;
+                translate.y = translate.y + dy;
+
+                touchX = event.getX();
+                touchY = event.getY();
+
+                this.invalidate();
+
+                return true;
+            case MotionEvent.ACTION_UP:
+                touchX = -1.0f;
+                touchY = -1.0f;
+                return true;
+        }
+        return true;
     }
 
     public int getBackGroundColor() {
